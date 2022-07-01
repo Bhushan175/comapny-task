@@ -1,0 +1,85 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<h1 style="text-align:center">Group Page</h1>
+<hr />
+<button type="button" class="btn btn-primary btn-div" data-bs-toggle="modal" data-bs-target="#exampleModal"
+  data-bs-whatever="@getbootstrap">
+  <i class="bi bi-plus-circle"></i>
+  Add Group
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Group</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post"> {% csrf_token %}
+          <div class="mb-3">
+            <label for="id_name" class="col-form-label">Group Name</label>
+            <input type="text" name="name" maxlength="120" required id="id_name" />
+          </div>
+          <div class="mb-3">
+            <label for="id_desc" class="col-form-label">Description</label>
+            <textarea class="form-control" type="text" name="desc" maxlength="120" required id="id_desc"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<hr>
+
+<!-- ALL Groups  -->
+<div class="justify-content-center container">
+  <h4>All Groups</h4>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col "><center>Action</center>
+        </th>
+
+      </tr>
+    </thead>
+    {% for group in all_groups %}
+ 
+    <tbody>
+      <tr>
+        <td>{{group.id}}</td>
+        <td>{{group.name}}</td>
+        <td>{{group.desc}}</td>
+
+        <td><a href="{% url 'update-group' group.id %}"><button type="button" class="btn btn-sm btn-success">Edit</button></a>
+          <a href="{% url 'delete-group' group.id %}"><button type="button"
+              class="btn btn-sm btn-danger">Delete</button></a>
+        </td>
+   
+
+
+      </tr>
+    </tbody>
+    {% endfor %}
+
+
+  </table>
+</div>
+
+{% endblock %}
+
+{% block list %}
+
+{% endblock %}
